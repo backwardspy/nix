@@ -4,7 +4,7 @@
     enable = true;
     config = {
       modifier = "Mod4";
-      menu = "tofi-drun --font ${pkgs.noto-fonts}/share/fonts/noto/NotoSans[wdth,wght].ttf";
+      menu = "${pkgs.tofi}/bin/tofi-drun --font '${pkgs.noto-fonts}/share/fonts/noto/NotoSans[wdth,wght].ttf' --drun-launch=true";
     };
     extraConfig = "include /etc/sway/config.d/*";
   };
@@ -14,6 +14,7 @@
     slurp
     wl-clipboard
     mako
-    tofi
   ];
+
+  programs.tofi.enable = true;
 }

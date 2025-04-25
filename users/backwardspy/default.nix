@@ -1,6 +1,7 @@
 { inputs, ... }:
 {
   imports = [
+    ./discord.nix
     ./neovim
     ./sway.nix
   ];
@@ -31,6 +32,7 @@
         { id = "nngceckbapebfimnlniiiahkandclblb"; }
         { id = "enamippconapkdmgfgjchkhakpfinmaj"; }
         { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; }
+        { id = "gfbliohnnapiefjpjlpjnehglfpaknnc"; }
       ];
     };
   };

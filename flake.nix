@@ -7,9 +7,18 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim = {
       url = "github:/nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
 
@@ -18,7 +27,9 @@
       self,
       nixpkgs,
       home-manager,
+      nix-index-database,
       nixvim,
+      stylix,
     }@inputs:
     {
       nixosConfigurations."zephyr" = nixpkgs.lib.nixosSystem {
@@ -26,6 +37,8 @@
         modules = [
           ./machines/zephyr
           home-manager.nixosModules.home-manager
+          nix-index-database.nixosModules.nix-index
+          stylix.nixosModules.stylix
           {
             home-manager = {
               useGlobalPkgs = true;

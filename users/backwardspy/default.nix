@@ -13,8 +13,39 @@
   };
 
   programs = {
+    home-manager.enable = true;
     direnv.enable = true;
-    fish.enable = true;
+    fish = {
+      enable = true;
+      functions = {
+        fish_greeting = "";
+      };
+      shellAbbrs = {
+        ga = "git add";
+        gb = "git branch";
+        gc = "git commit";
+        gco = "git checkout";
+        gd = "git diff";
+        gl = "git pull";
+        gp = "git push";
+        gr = "git rebase";
+        gra = "git rebase --abort";
+        grc = "git rebase --continue";
+        gs = "git switch";
+        gsm = "git switch main";
+        gst = "git status";
+        la = "eza -a";
+        ll = "eza -l";
+        lla = "eza -la";
+        ls = "eza";
+      };
+      preferAbbrs = true;
+    };
+    eza = {
+      enable = true;
+      git = true;
+      icons = "auto";
+    };
     git = {
       enable = true;
       lfs.enable = true;
@@ -24,7 +55,6 @@
         init.defaultBranch = "main";
       };
     };
-    home-manager.enable = true;
     chromium = {
       enable = true;
       extensions = [

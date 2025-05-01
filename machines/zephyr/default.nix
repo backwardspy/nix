@@ -5,8 +5,9 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./sway.nix
     ./bluetooth.nix
+    ./stylix.nix
+    ./sway.nix
   ];
 
   nix.settings.experimental-features = [

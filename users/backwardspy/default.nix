@@ -4,6 +4,7 @@
     ./discord.nix
     ./neovim
     ./sway.nix
+    ./ui.nix
   ];
 
   home = {

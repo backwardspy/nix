@@ -8,6 +8,7 @@
     ./bluetooth.nix
     ./stylix.nix
     ./sway.nix
+    ./ui.nix
   ];
 
   nix.settings.experimental-features = [

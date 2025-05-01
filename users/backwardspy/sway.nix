@@ -48,9 +48,4 @@
   programs.i3status-rust.enable = true;
 
   programs.waybar.enable = true;
-
-  gtk.iconTheme = {
-    package = pkgs.hicolor-icon-theme;
-    name = "hicolor";
-  };
 }

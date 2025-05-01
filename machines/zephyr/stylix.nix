@@ -2,7 +2,7 @@
 {
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/oxocarbon-dark.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/irblack.yaml";
     fonts = rec {
       monospace = {
         package = pkgs.uni-vga;

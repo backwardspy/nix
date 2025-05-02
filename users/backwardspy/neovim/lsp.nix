@@ -20,4 +20,14 @@
 
     lsp-format.enable = true;
   };
+
+  programs.nixvim.keymaps = [
+    {
+      action = "<cmd>lua vim.diagnostic.open_float()<cr>";
+      key = "<leader>e";
+      options = {
+        desc = "Show Diagnostic";
+      };
+    }
+  ];
 }

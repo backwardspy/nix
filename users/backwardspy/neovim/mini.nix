@@ -8,11 +8,11 @@
         triggers = [
           {
             mode = "n";
-            keys = "<Leader>";
+            keys = "<leader>";
           }
           {
             mode = "x";
-            keys = "<Leader>";
+            keys = "<leader>";
           }
 
           {

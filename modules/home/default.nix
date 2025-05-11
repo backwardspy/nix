@@ -1,10 +1,10 @@
-{ lib, username, email, isGraphical, ... }:
+{ lib, username, email, platform, ... }:
 {
   imports = [
     ./bitwarden.nix
     ./neovim
     ./syncthing.nix
-  ] ++ lib.optionals isGraphical [
+  ] ++ lib.optionals (platform == "nixos") [
     ./discord.nix
     ./sway.nix
     ./ui.nix
@@ -12,9 +12,8 @@
 
   home = {
     inherit username;
-    homeDirectory = "/home/${username}";
     stateVersion = "24.11";
-  };
+  }; # // (lib.mkIf (platform != "darwin") { homeDirectory = "/home/${username}"; });
 
   programs = {
     home-manager.enable = true;
@@ -61,7 +60,7 @@
       };
     };
     chromium = {
-      enable = true;
+      enable = platform != "darwin";
       extensions = [
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
         { id = "nngceckbapebfimnlniiiahkandclblb"; }
@@ -72,5 +71,5 @@
     };
   };
 
-  services.blueman-applet.enable = true;
+  services.blueman-applet.enable = platform == "nixos";
 }

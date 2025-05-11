@@ -48,7 +48,7 @@
         {
           username,
           email,
-          isGraphical,
+          platform,
         }:
         {
           home-manager = {
@@ -60,7 +60,7 @@
                 inputs
                 username
                 email
-                isGraphical
+                platform
                 ;
             };
           };
@@ -80,14 +80,23 @@
           modules =
             [
               ./hosts/zephyr
-              (mkHomeConfig (user // { isGraphical = true; }))
+              (mkHomeConfig (user // { platform = "nixos"; }))
             ]
             ++ defaultModules
             ++ graphicalModules;
         };
 
       darwinConfigurations."kujira" = nix-darwin.lib.darwinSystem {
-        modules = [ ./hosts/kujira ];
+        system = "x86_64-darwin";
+        modules = [
+	  ./hosts/kujira
+	  home-manager.darwinModules.home-manager
+	  (mkHomeConfig ({
+	    username = "backwardspy";
+	    email = "backwardspy@pigeon.life";
+	    platform = "darwin";
+	  }))
+	];
       };
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;

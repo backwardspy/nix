@@ -4,7 +4,7 @@
   ...
 }:
 {
-  imports = [ ];
+  imports = [../../modules/darwin/macos-user.nix];
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -16,6 +16,8 @@
   networking.hostName = "kujira";
 
   time.timeZone = "Europe/London";
+
+  macos-user = { enable = true; username = "backwardspy"; };
 
   environment.systemPackages = with pkgs; [
     git

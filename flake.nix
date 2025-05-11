@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-darwin = {
-        url = "github:nix-darwin/nix-darwin/master";
-	inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -46,6 +46,7 @@
       ];
       mkHomeConfig =
         {
+          hostname,
           username,
           email,
           platform,
@@ -58,6 +59,7 @@
             extraSpecialArgs = {
               inherit
                 inputs
+                hostname
                 username
                 email
                 platform
@@ -80,7 +82,13 @@
           modules =
             [
               ./hosts/zephyr
-              (mkHomeConfig (user // { platform = "nixos"; }))
+              (mkHomeConfig (
+                user
+                // {
+                  hostname = "zephyr";
+                  platform = "nixos";
+                }
+              ))
             ]
             ++ defaultModules
             ++ graphicalModules;
@@ -89,14 +97,15 @@
       darwinConfigurations."kujira" = nix-darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
-	  ./hosts/kujira
-	  home-manager.darwinModules.home-manager
-	  (mkHomeConfig ({
-	    username = "backwardspy";
-	    email = "backwardspy@pigeon.life";
-	    platform = "darwin";
-	  }))
-	];
+          ./hosts/kujira
+          home-manager.darwinModules.home-manager
+          (mkHomeConfig ({
+            username = "backwardspy";
+            email = "backwardspy@pigeon.life";
+            hostname = "kujira";
+            platform = "darwin";
+          }))
+        ];
       };
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;

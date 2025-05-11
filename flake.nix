@@ -40,30 +40,35 @@
         stylix.nixosModules.stylix
       ];
       hmConfig =
-        { username }:
+        { username, email }:
         {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
             users.${username} = ./modules/home;
-            extraSpecialArgs = { inherit inputs username; };
+            extraSpecialArgs = { inherit inputs username email; };
           };
         };
     in
     {
-      nixosConfigurations."zephyr" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          username = "backwardspy";
+      nixosConfigurations."zephyr" =
+        let
+          user = {
+            username = "backwardspy";
+            email = "backwardspy@pigeon.life";
+          };
+        in
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = user;
+          modules =
+            [
+              ./hosts/zephyr
+              (hmConfig user)
+            ]
+            ++ defaultModules
+            ++ graphicalModules;
         };
-        modules =
-          [
-            ./hosts/zephyr
-            (hmConfig { username = "backwardspy"; })
-          ]
-          ++ defaultModules
-          ++ graphicalModules;
-      };
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };

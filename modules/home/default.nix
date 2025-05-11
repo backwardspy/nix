@@ -1,6 +1,7 @@
-{ username, ... }:
+{ username, email, ... }:
 {
   imports = [
+    ./bitwarden.nix
     ./discord.nix
     ./neovim
     ./sway.nix
@@ -24,6 +25,7 @@
       };
       shellAbbrs = {
         ga = "git add";
+        gaa = "git add -A";
         gb = "git branch";
         gc = "git commit";
         gco = "git checkout";
@@ -52,7 +54,7 @@
       enable = true;
       lfs.enable = true;
       userName = username;
-      userEmail = "backwardspy@pigeon.life";
+      userEmail = email;
       extraConfig = {
         init.defaultBranch = "main";
       };

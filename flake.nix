@@ -39,14 +39,25 @@
       graphicalModules = [
         stylix.nixosModules.stylix
       ];
-      hmConfig =
-        { username, email }:
+      mkHomeConfig =
+        {
+          username,
+          email,
+          isGraphical,
+        }:
         {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
             users.${username} = ./modules/home;
-            extraSpecialArgs = { inherit inputs username email; };
+            extraSpecialArgs = {
+              inherit
+                inputs
+                username
+                email
+                isGraphical
+                ;
+            };
           };
         };
     in
@@ -64,7 +75,7 @@
           modules =
             [
               ./hosts/zephyr
-              (hmConfig user)
+              (mkHomeConfig (user // { isGraphical = true; }))
             ]
             ++ defaultModules
             ++ graphicalModules;

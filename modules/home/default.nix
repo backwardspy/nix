@@ -1,12 +1,13 @@
-{ username, email, ... }:
+{ lib, username, email, isGraphical, ... }:
 {
   imports = [
     ./bitwarden.nix
-    ./discord.nix
     ./neovim
+    ./syncthing.nix
+  ] ++ lib.optionals isGraphical [
+    ./discord.nix
     ./sway.nix
     ./ui.nix
-    ./syncthing.nix
   ];
 
   home = {

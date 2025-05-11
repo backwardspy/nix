@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-darwin = {
+        url = "github:nix-darwin/nix-darwin/master";
+	inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +30,7 @@
     {
       self,
       nixpkgs,
+      nix-darwin,
       home-manager,
       nix-index-database,
       nixvim,
@@ -80,6 +85,10 @@
             ++ defaultModules
             ++ graphicalModules;
         };
+
+      darwinConfigurations."kujira" = nix-darwin.lib.darwinSystem {
+        modules = [ ./hosts/kujira ];
+      };
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };

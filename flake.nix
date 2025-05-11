@@ -31,23 +31,38 @@
       nixvim,
       stylix,
     }@inputs:
+    let
+      defaultModules = [
+        home-manager.nixosModules.home-manager
+        nix-index-database.nixosModules.nix-index
+      ];
+      graphicalModules = [
+        stylix.nixosModules.stylix
+      ];
+      hmConfig =
+        { username }:
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.${username} = ./modules/home;
+            extraSpecialArgs = { inherit inputs username; };
+          };
+        };
+    in
     {
       nixosConfigurations."zephyr" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
-          ./machines/zephyr
-          home-manager.nixosModules.home-manager
-          nix-index-database.nixosModules.nix-index
-          stylix.nixosModules.stylix
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.backwardspy = ./users/backwardspy;
-              extraSpecialArgs = { inherit inputs; };
-            };
-          }
-        ];
+        specialArgs = {
+          username = "backwardspy";
+        };
+        modules =
+          [
+            ./hosts/zephyr
+            (hmConfig { username = "backwardspy"; })
+          ]
+          ++ defaultModules
+          ++ graphicalModules;
       };
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;

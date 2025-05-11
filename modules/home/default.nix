@@ -1,15 +1,16 @@
-{ inputs, ... }:
+{ username, ... }:
 {
   imports = [
     ./discord.nix
     ./neovim
     ./sway.nix
     ./ui.nix
+    ./syncthing.nix
   ];
 
   home = {
-    username = "backwardspy";
-    homeDirectory = "/home/backwardspy";
+    inherit username;
+    homeDirectory = "/home/${username}";
     stateVersion = "24.11";
   };
 
@@ -50,7 +51,7 @@
     git = {
       enable = true;
       lfs.enable = true;
-      userName = "backwardspy";
+      userName = username;
       userEmail = "backwardspy@pigeon.life";
       extraConfig = {
         init.defaultBranch = "main";

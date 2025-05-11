@@ -32,20 +32,36 @@
     grim
     slurp
     wl-clipboard
-    mako
   ];
 
-  programs.tofi.enable = true;
+  services = {
+    mako = {
+      enable = true;
+      defaultTimeout = 10000;
+    };
 
-  programs.foot = {
-    enable = true;
-    # TODO: shouldn't stylix handle these?
-    settings = {
-      main.font = "VGA:size=12";
+    swayidle = {
+      enable = true;
+      timeouts = [
+        {
+          timeout = 180;
+          command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
+          resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
+        }
+      ];
     };
   };
 
-  programs.i3status-rust.enable = true;
-
-  programs.waybar.enable = true;
+  programs = {
+    waybar.enable = true;
+    i3status-rust.enable = true;
+    tofi.enable = true;
+    foot = {
+      enable = true;
+      # TODO: shouldn't stylix handle these?
+      settings = {
+        main.font = "VGA:size=12";
+      };
+    };
+  };
 }

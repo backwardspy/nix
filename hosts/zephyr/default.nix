@@ -23,9 +23,18 @@
   i18n.defaultLocale = "en_GB.UTF-8";
   time.timeZone = "Europe/London";
 
-  userinfo = {
+  nixos-user = {
     enable = true;
     inherit username;
+  };
+  home-manager.users.${username} = ./home.nix;
+
+  pigeon = {
+    audio.enable = true;
+    bluetooth.enable = true;
+    shell.enable = true;
+    stylix.enable = true;
+    sway.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

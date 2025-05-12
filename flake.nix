@@ -55,7 +55,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.${username} = ./modules/home;
+            sharedModules = [ inputs.self.outputs.homeModules.default ];
             extraSpecialArgs = {
               inherit
                 inputs
@@ -78,7 +78,7 @@
         in
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = user;
+          specialArgs = { inherit inputs;} // user;
           modules =
             [
               ./hosts/zephyr
@@ -107,6 +107,8 @@
           }))
         ];
       };
+
+      homeModules.default = ./modules/home;
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };

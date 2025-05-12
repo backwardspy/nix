@@ -1,4 +1,9 @@
-{ lib, hostname, ... }:
+{
+  config,
+  lib,
+  hostname,
+  ...
+}:
 let
   # devices with nix-managed syncthing need to add other nix devices but not themselves
   devices = [
@@ -23,20 +28,24 @@ let
   otherDeviceNames = map (device: device.name) otherDevices;
 in
 {
-  services.syncthing = {
-    enable = true;
-    settings = {
-      devices = lib.mapAttrs (name: value: { id = value; }) (
-        lib.listToAttrs (map ({ name, id }: lib.nameValuePair name id) otherDevices)
-      );
-      folders = {
-        "~/notes" = {
-          id = "notes";
-          devices = otherDeviceNames;
-        };
-        "~/sync" = {
-          id = "sync";
-          devices = otherDeviceNames;
+  options.pigeon.syncthing.enable = lib.mkEnableOption "syncthing";
+
+  config = lib.mkIf config.pigeon.syncthing.enable {
+    services.syncthing = {
+      enable = true;
+      settings = {
+        devices = lib.mapAttrs (name: value: { id = value; }) (
+          lib.listToAttrs (map ({ name, id }: lib.nameValuePair name id) otherDevices)
+        );
+        folders = {
+          "~/notes" = {
+            id = "notes";
+            devices = otherDeviceNames;
+          };
+          "~/sync" = {
+            id = "sync";
+            devices = otherDeviceNames;
+          };
         };
       };
     };

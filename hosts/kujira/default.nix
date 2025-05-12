@@ -4,7 +4,7 @@
   ...
 }:
 {
-  imports = [../../modules/darwin/macos-user.nix];
+  imports = [ ../../modules/darwin/darwin-user.nix ];
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -17,7 +17,10 @@
 
   time.timeZone = "Europe/London";
 
-  macos-user = { enable = true; username = "backwardspy"; };
+  darwin-user = {
+    enable = true;
+    username = "backwardspy";
+  };
 
   environment.systemPackages = with pkgs; [
     git

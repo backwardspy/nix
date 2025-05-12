@@ -15,6 +15,8 @@
       };
       defaultWorkspace = "workspace number 1";
 
+      seat."*".hide_cursor = "3000"; # hide mouse after 3 seconds of inactivity
+
       bars = [
         (
           {
@@ -58,10 +60,8 @@
     tofi.enable = true;
     foot = {
       enable = true;
-      # TODO: shouldn't stylix handle these?
-      settings = {
-        main.font = "VGA:size=12";
-      };
+      # TODO: shouldn't stylix handle this?
+      settings.main.font = "VGA:size=12";
     };
   };
 }

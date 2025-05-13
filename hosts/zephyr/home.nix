@@ -14,6 +14,7 @@
     bitwarden.enable = true;
     discord.enable = true;
     neovim.enable = true;
+    spotify.enable = true;
     sway.enable = true;
     syncthing.enable = true;
   };

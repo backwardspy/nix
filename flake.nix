@@ -78,7 +78,9 @@
         in
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs;} // user;
+          specialArgs = {
+            inherit inputs;
+          } // user;
           modules =
             [
               ./hosts/zephyr

@@ -12,6 +12,7 @@
       enable = true;
       polarity = "dark";
       base16Scheme = "${pkgs.base16-schemes}/share/themes/irblack.yaml";
+      image = ../../assets/alonetogether.png;
       fonts = rec {
         monospace = {
           package = pkgs.uni-vga;

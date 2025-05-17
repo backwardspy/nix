@@ -7,6 +7,7 @@
     ./shell.nix
     ./stylix.nix
     ./sway.nix
+    ./toolchain.nix
     ./ui.nix
   ];
 }

@@ -35,6 +35,7 @@
     shell.enable = true;
     stylix.enable = true;
     sway.enable = true;
+    toolchain.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

@@ -1,5 +1,4 @@
 {
-  platform,
   username,
   email,
   ...
@@ -64,7 +63,7 @@
       };
     };
     chromium = {
-      enable = platform != "darwin";
+      enable = true;
       extensions = [
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
         { id = "nngceckbapebfimnlniiiahkandclblb"; }
@@ -75,5 +74,5 @@
     };
   };
 
-  services.blueman-applet.enable = platform == "nixos";
+  services.blueman-applet.enable = true;
 }

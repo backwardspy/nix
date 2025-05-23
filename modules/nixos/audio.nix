@@ -11,5 +11,7 @@
       pulse.enable = true;
       jack.enable = true;
     };
+
+    programs.noisetorch.enable = true;
   };
 }

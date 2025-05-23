@@ -15,6 +15,7 @@
           installCargo = false;
           installRustc = false;
         };
+        taplo.enable = true;
       };
     };
 

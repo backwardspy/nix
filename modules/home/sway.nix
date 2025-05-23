@@ -32,7 +32,10 @@
           )
         ];
       };
-      extraConfig = "include /etc/sway/config.d/*";
+      extraConfig = ''
+        exec ${pkgs.autotiling-rs}/bin/autotiling-rs
+        include /etc/sway/config.d/*
+      '';
     };
 
     home.packages = with pkgs; [
@@ -40,6 +43,11 @@
       slurp
       wl-clipboard
     ];
+
+    # tofi's drun cache is weirdly permanent
+    home.activation = {
+      clearTofiCache = lib.hm.dag.entryAfter [ "writeBoundary" ] "[ -e $HOME/.cache/tofi-drun ] && rm $HOME/.cache/tofi-drun";
+    };
 
     services = {
       mako = {

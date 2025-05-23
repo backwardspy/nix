@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   username,
   ...
@@ -38,8 +39,19 @@
     toolchain.enable = true;
   };
 
+  hardware.keyboard.uhk.enable = true;
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "discord"
+      "uhk-agent"
+      "uhk-udev-rules"
+    ];
+
   environment.systemPackages = with pkgs; [
     neovim
+    uhk-agent
+    uhk-udev-rules
   ];
 
   # allows adb/fastboot access for the `adbusers` group

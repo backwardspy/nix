@@ -11,6 +11,8 @@
     environment.systemPackages = with pkgs; [
       bat
       fd
+      file
+      htop
       jq
       ripgrep
       tealdeer

@@ -17,6 +17,9 @@
           installRustc = false;
         };
         taplo.enable = true;
+        html.enable = true;
+        eslint.enable = true;
+        cssls.enable = true;
       };
     };
 

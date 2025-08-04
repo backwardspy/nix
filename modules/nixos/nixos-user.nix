@@ -9,10 +9,6 @@
     nixos-user = {
       enable = lib.mkEnableOption "enable nixos-user module";
       username = lib.mkOption { description = "username"; };
-      shell = lib.mkOption {
-        description = "shell package";
-        default = pkgs.fish;
-      };
     };
   };
 
@@ -23,7 +19,7 @@
         "wheel"
         "adbusers"
       ];
-      shell = config.nixos-user.shell;
+      shell = pkgs.fish;
     };
     programs.fish.enable = true;
   };

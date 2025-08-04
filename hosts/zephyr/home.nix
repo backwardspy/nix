@@ -12,6 +12,7 @@
   pigeon = {
     bitwarden.enable = true;
     discord.enable = true;
+    helix.enable = true;
     neovim.enable = true;
     spotify.enable = true;
     sway.enable = true;

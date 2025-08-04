@@ -33,7 +33,6 @@
   pigeon = {
     audio.enable = true;
     bluetooth.enable = true;
-    shell.enable = true;
     stylix.enable = true;
     sway.enable = true;
     toolchain.enable = true;

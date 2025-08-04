@@ -3,6 +3,7 @@
   imports = [
     ./bitwarden.nix
     ./discord.nix
+    ./helix.nix
     ./neovim
     ./spotify.nix
     ./sway.nix

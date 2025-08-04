@@ -22,8 +22,13 @@
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
   };
 
   outputs =
@@ -35,6 +40,8 @@
       nix-index-database,
       nixvim,
       stylix,
+      nix-homebrew,
+      homebrew-cask,
     }@inputs:
     let
       defaultModules = [
@@ -80,35 +87,48 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
-          } // user;
-          modules =
-            [
-              ./hosts/zephyr
-              (mkHomeConfig (
-                user
-                // {
-                  hostname = "zephyr";
-                  platform = "nixos";
-                }
-              ))
-            ]
-            ++ defaultModules
-            ++ graphicalModules;
+          }
+          // user;
+          modules = [
+            ./hosts/zephyr
+            (mkHomeConfig (
+              user
+              // {
+                hostname = "zephyr";
+                platform = "nixos";
+              }
+            ))
+          ]
+          ++ defaultModules
+          ++ graphicalModules;
         };
 
-      darwinConfigurations."kujira" = nix-darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [
-          ./hosts/kujira
-          home-manager.darwinModules.home-manager
-          (mkHomeConfig ({
+      darwinConfigurations."kujira" =
+        let
+          user = {
             username = "backwardspy";
             email = "backwardspy@pigeon.life";
-            hostname = "kujira";
-            platform = "darwin";
-          }))
-        ];
-      };
+          };
+        in
+        nix-darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          specialArgs = {
+            inherit inputs;
+          }
+          // user;
+          modules = [
+            ./hosts/kujira
+            home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
+            (mkHomeConfig (
+              user
+              // {
+                hostname = "kujira";
+                platform = "darwin";
+              }
+            ))
+          ];
+        };
 
       homeModules.default = ./modules/home;
 
